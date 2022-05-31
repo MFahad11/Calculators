@@ -1,0 +1,174 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple-Calculator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+  <style>
+    body {
+      background-color: #e0d7d7;
+      box-sizing: border-box;
+    }
+
+    .border-shading {
+      box-shadow: 5px 10px 8px 10px #888888;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div class=" w-25 border-shading" style="margin:  30px auto 0px auto;">
+    <div class="container h-25 border border-dark bg-light text-bottom" id="display">
+      <span class="float-end mt-5"></span>
+      <p class=" fs-3 fw-bolder text-end" style="margin-top: 25%;"></p>
+    </div>
+    <table class="table table-bordered w-100 h-50 border border-dark ">
+      <tbody>
+        <tr>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-c"></i>
+          </td>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-square-root-variable operation"></i>
+          </td>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-superscript operation"></i>
+          </td>
+          <td class="text-center align-middle bg-primary text-light">
+            <i class="fa-solid fa-divide operation"></i>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-1 numeric"></i>
+          </td>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-2 numeric"></i>
+          </td>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-3 numeric"></i>
+          </td>
+          <td class="text-center align-middle bg-primary text-light">
+            <i class="fa-solid fa-plus operation"></i>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-4 numeric"></i>
+          </td>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-5 numeric"></i>
+          </td>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-6 numeric"></i>
+          </td>
+          <td class="text-center align-middle bg-primary text-light">
+            <i class="fa-solid fa-minus operation"></i>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-7 numeric"></i>
+          </td>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-8 numeric"></i>
+          </td>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-9 numeric"></i>
+          </td>
+          <td class="text-center align-middle bg-primary text-light">
+            <i class="fa-solid fa-xmark operation"></i>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center align-middle bg-secondary text-light">
+            <i class="fa-solid fa-0 numeric"></i>
+          </td>
+          <td colspan="2" class="text-center align-middle fw-bolder h3 bg-dark text-light">
+            <i class="equalsto">=</i>
+          </td>
+          <td class="text-center align-middle fw-bolder h3 bg-warning text-light">
+            <i class="fa-solid fa-delete-left"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="https://kit.fontawesome.com/69ee489e1c.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script>
+    jQuery.noConflict();
+    jQuery(document).ready(function ($) {
+      display = $("#display>p");
+      var value = 0; var counter = 0;
+      function findOperator(class_related) {
+        switch (class_related) {
+          case "fa-divide":
+
+            return "/"
+            break;
+          case "fa-plus":
+            return "+"
+            break;
+          case "fa-minus":
+            return "-"
+            break;
+          case "fa-xmark":
+            return "*"
+            break;
+          case "fa-superscript":
+            return "**"
+            break;
+          case "fa-square-root-variable":
+            return "**0.5"
+            break;
+        }
+      }
+      $("td i").each((e) => {
+        $("td")[e].addEventListener("click", function () {
+          if ($("td i")[e].classList.contains("numeric")) {
+            if (e <= 6) {
+              $("p,span").append(e - 3);
+            } else if (e > 6 && e <= 10) {
+              $("p,span").append(e - 4);
+            } else if (e > 10 && e < 16) {
+              $("p,span").append(e - 5);
+            } else {
+              $("p,span").append(0);
+            }
+          } else if ($("td i")[e].classList.contains("operation")) {
+            operator = findOperator($("td>i")[e].classList[1]);
+            $("p").append(operator)
+            $("span").append(operator)
+            to_eval = $("p").text();
+            console.log(to_eval);
+          } else if ($("td i")[e].classList.contains("equalsto")) {
+            $("p").text(eval($("p").text()))
+
+          } else if ($("td i")[e].classList.contains("fa-delete-left")) {
+            value = Number($("p").text());
+            value = Math.floor(value / 10)
+            $("p").text(`${value}`);
+            if (value == 0) {
+              $("p,span").text("");
+            }
+          }
+          else {
+            $("p,span").text("");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
